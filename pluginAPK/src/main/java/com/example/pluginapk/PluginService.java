@@ -5,23 +5,31 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
+import com.example.pluginmanager.PluginInterface;
 
 public class PluginService extends Service implements PluginInterface {
+    private int apkVersion = 1;
 
     @Override
     public void onCreate() {
-        super.onCreate();
-        Log.i("PluginService", "hk ------ PluginService onCreate");
+        // 打印出需要更新的 apk 版本号
+        Log.i("PluginService", "PluginService onCreate, version = " + apkVersion);
     }
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
-        Log.i("PluginService", "onDestroy");
     }
 
+    @Nullable
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        return super.onStartCommand(intent, flags, startId);
     }
 }
