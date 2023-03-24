@@ -137,7 +137,8 @@ public class LoaderService extends Service implements PluginInterface {
                 inputStream.close();
                 fileOutputStream.flush();
                 fileOutputStream.close();
-                System.out.println("hk ----------PluginService onCreate------  updated!");
+
+                // 下载完成，通知 APP 重新启动，下次可以加载新版本的 APK
             }
         } catch (Exception e) {
         }
