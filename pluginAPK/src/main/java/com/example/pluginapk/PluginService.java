@@ -10,12 +10,14 @@ import androidx.annotation.Nullable;
 import com.example.pluginmanager.PluginInterface;
 
 public class PluginService extends Service implements PluginInterface {
-    private int apkVersion = 1;
+    static {
+        System.loadLibrary("pluginapk");
+    }
 
     @Override
     public void onCreate() {
         // 打印出需要更新的 apk 版本号
-        Log.i("PluginService", "PluginService onCreate, version = " + apkVersion);
+        Log.i("PluginService", stringFromJNI());
     }
 
     @Override
@@ -32,4 +34,6 @@ public class PluginService extends Service implements PluginInterface {
     public int onStartCommand(Intent intent, int flags, int startId) {
         return super.onStartCommand(intent, flags, startId);
     }
+
+    public native String stringFromJNI();
 }

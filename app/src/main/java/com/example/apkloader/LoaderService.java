@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -22,7 +23,7 @@ import java.io.InputStream;
 
 public class LoaderService extends Service implements PluginInterface {
     private PluginInterface pluginService;
-    private static final String APK_URL = "https://sdk-release.qnsdk.com/pluginapk.apk";
+    private static final String APK_URL = "https://sdk-release.qnsdk.com/pluginapk_v2.0.apk";
 
     @Nullable
     @Override
@@ -34,6 +35,7 @@ public class LoaderService extends Service implements PluginInterface {
     public void onCreate() {
         super.onCreate();
 
+        // 需要加载的 apk 中的 Service
         String className = "com.example.pluginapk.PluginService";
         try {
             File apkFile;
@@ -137,10 +139,11 @@ public class LoaderService extends Service implements PluginInterface {
                 inputStream.close();
                 fileOutputStream.flush();
                 fileOutputStream.close();
-
                 // 下载完成，通知 APP 重新启动，下次可以加载新版本的 APK
+                Log.i("LoaderService", "update finish, please restart the app !");
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
